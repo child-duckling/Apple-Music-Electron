@@ -1,5 +1,6 @@
 const {app, nativeTheme, nativeImage, Tray} = require("electron"),
     {join, resolve} = require("path"),
+    {menubar} = require('menubar'),
     os = require("os"),
     fs = require("fs"),
     {initAnalytics} = require('./utils');
@@ -208,6 +209,21 @@ const init = {
                 }
             }
         })
+
+        const menu = menubar({
+            index: join(__dirname, '../html/menubar.html'),
+            browserWindow: {
+                width: 400,
+                height: 400
+            },
+            tooltip: app.getName(),
+            tray: app.tray,
+        });
+
+        menu.on('ready', () => {
+            console.log('app is ready');
+            // your app code here
+        });
     }
 }
 
